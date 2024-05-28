@@ -142,6 +142,23 @@ ifeq ($(CONFIG_TOUCHSCREEN_GOODIX_BRL), y)
 	obj-$(CONFIG_MSM_TOUCH) += goodix_ts.o
 endif
 
+ifeq ($(CONFIG_TOUCHSCREEN_LXS_TS), y)
+	LINUX_INC += -include $(TOUCH_ROOT)/lxs_ts/lxs_ts.h
+	LINUX_INC += -include $(TOUCH_ROOT)/lxs_ts/lxs_ts_hal_prd.h
+
+              lxs_ts-y := \
+		 ./lxs_ts/lxs_ts.o \
+		 ./lxs_ts/lxs_ts_fn.o \
+		 ./lxs_ts/lxs_ts_hal.o \
+		 ./lxs_ts/lxs_ts_hal_fw.o \
+		 ./lxs_ts/lxs_ts_hal_prd.o \
+		 ./lxs_ts/lxs_ts_sysfs.o \
+		 ./lxs_ts/touch_sw82907.o
+
+	obj-$(CONFIG_MSM_TOUCH) += lxs_ts.o
+
+endif
+
 ifeq ($(CONFIG_TOUCHSCREEN_ATMEL_MXT), y)
 
 	atmel_mxt_ts-y := \
