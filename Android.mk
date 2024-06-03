@@ -151,6 +151,7 @@ else ifeq ($(TARGET_BOARD_PLATFORM), kalama)
 
        ###########################################################
        include $(CLEAR_VARS)
+       KBUILD_OPTIONS += KBUILD_EXTRA_SYMBOLS=$(shell pwd)/$(call intermediates-dir-for,DLKM,drm-module-symvers)/Module.symvers
        LOCAL_SRC_FILES   := $(wildcard $(LOCAL_PATH)/**/*) $(wildcard $(LOCAL_PATH)/*)
        LOCAL_MODULE              := lxs_touchscreen.ko
        LOCAL_MODULE_KBUILD_NAME  := lxs_touchscreen.ko
@@ -158,6 +159,8 @@ else ifeq ($(TARGET_BOARD_PLATFORM), kalama)
        #LOCAL_MODULE_DEBUG_ENABLE := true
        LOCAL_MODULE_PATH         := $(KERNEL_MODULES_OUT)
        include $(DLKM_DIR)/Build_external_kernelmodule.mk
+       LOCAL_REQUIRED_MODULES    := drm-module-symvers
+       LOCAL_ADDITIONAL_DEPENDENCIES := $(call intermediates-dir-for,DLKM,drm-module-symvers)/Module.symvers
        ###########################################################
 
 else ifeq ($(TARGET_BOARD_PLATFORM), blair)
